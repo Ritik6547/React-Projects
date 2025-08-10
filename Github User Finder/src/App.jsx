@@ -73,9 +73,6 @@ const App = () => {
       })
       .then((data) => {
         if (data?.message === "Not Found") {
-          // dispatch({ type: ACTIONS.SET_ERROR, message: "No User Found" });
-          // dispatch({ type: ACTIONS.SET_QUERY, query: "" });
-          // dispatch({ type: ACTIONS.SET_LOADING, loading: false });
           dispatch({
             type: ACTIONS.SET_ALL,
             payload: {
@@ -86,10 +83,7 @@ const App = () => {
           });
           return;
         }
-        // dispatch({ type: ACTIONS.SET_USER_DATA, data: data });
-        // dispatch({ type: ACTIONS.SET_QUERY, query: "" });
-        // dispatch({ type: ACTIONS.SET_ERROR, message: "" });
-        // dispatch({ type: ACTIONS.SET_LOADING, loading: false });
+
         dispatch({
           type: ACTIONS.SET_ALL,
           payload: {
@@ -101,10 +95,6 @@ const App = () => {
         });
       })
       .catch((err) => {
-        // dispatch({ type: ACTIONS.SET_ERROR, message: "Network Error" });
-        // dispatch({ type: ACTIONS.SET_QUERY, query: "" });
-        // dispatch({ type: ACTIONS.SET_LOADING, loading: false });
-
         dispatch({
           type: ACTIONS.SET_ALL,
           payload: {
@@ -129,8 +119,10 @@ const App = () => {
           return;
         }
 
-        dispatch({ type: ACTIONS.SET_REPOS, repos: data });
-        dispatch({ type: ACTIONS.SET_ERROR, message: "" });
+        dispatch({
+          type: ACTIONS.SET_ALL,
+          payload: { repos: data, error: "" },
+        });
       })
       .catch((err) => {
         console.log(err);

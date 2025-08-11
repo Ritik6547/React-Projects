@@ -9,10 +9,12 @@ const App = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const token = import.meta.env.VITE_WEATHER_TOKEN;
+
   useEffect(() => {
     if (city) {
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ded956a99e83cfa92e3509a573a6b09c&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${token}&units=metric`
       )
         .then((res) => res.json())
         .then((data) => {

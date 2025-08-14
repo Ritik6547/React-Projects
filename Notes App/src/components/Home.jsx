@@ -1,6 +1,9 @@
 import { useState } from "react";
-import EmptyNotes from "./EmptyCompletedNotes";
 import NotesList from "./NotesList";
+import NotesStatus from "./NotesStatus";
+import emptyNotesImg from "../assets/empty-notes-icon.svg";
+import searchImg from "../assets/search.svg";
+import AddNoteModal from "./AddNoteModal";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState("ALL");
@@ -33,8 +36,14 @@ const Home = () => {
         </div>
       </div>
 
-      {/* <EmptyNotes label="You don't have any notes" /> */}
-      <NotesList />
+      <NotesStatus label="You don't have any notes" imgSrc={emptyNotesImg} />
+      {/* <NotesStatus
+        label="You don't have any completed notes"
+        imgSrc={emptyNotes}
+      /> */}
+      {/* <NotesStatus label="No notes found" imgSrc={searchImg} /> */}
+
+      {/* <NotesList /> */}
     </div>
   );
 };

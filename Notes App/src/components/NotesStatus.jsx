@@ -1,10 +1,8 @@
-import emptyNotes from "../assets/empty-notes-icon.svg";
-
-const EmptyCompletedNotes = ({ label }) => {
+const NotesStatus = ({ label, imgSrc }) => {
   return (
     <div className="mt-20 flex justify-center">
       <div className="">
-        <img src={emptyNotes} alt="empty-notes" />
+        <img className="mx-auto" src={imgSrc} alt="empty-notes" />
         <p className="mt-5 text-center text-xl font-medium text-gray-900">
           {label}
         </p>
@@ -13,4 +11,4 @@ const EmptyCompletedNotes = ({ label }) => {
   );
 };
 
-export default EmptyCompletedNotes;
+export default NotesStatus;

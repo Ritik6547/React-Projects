@@ -7,6 +7,7 @@ import AddNoteModal from "./AddNoteModal";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState("ALL");
+
   const tabs = ["ALL", "PERSONAL", "HOME", "BUSINESS"];
 
   return (
@@ -14,9 +15,10 @@ const Home = () => {
       <h2 className="text-2xl font-semibold">Your notes</h2>
       <div className="mt-6 flex justify-between">
         <div className="tab-container relative flex gap-12 font-medium tracking-widest text-gray-900/60">
-          {tabs.map((tab) => {
+          {tabs.map((tab, i) => {
             return (
               <button
+                key={i}
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 cursor-pointer py-1 ${activeTab === tab ? "text-blue-400" : ""}`}
               >
@@ -36,14 +38,14 @@ const Home = () => {
         </div>
       </div>
 
-      <NotesStatus label="You don't have any notes" imgSrc={emptyNotesImg} />
+      {/* <NotesStatus label="You don't have any notes" imgSrc={emptyNotesImg} /> */}
       {/* <NotesStatus
         label="You don't have any completed notes"
         imgSrc={emptyNotes}
       /> */}
       {/* <NotesStatus label="No notes found" imgSrc={searchImg} /> */}
 
-      {/* <NotesList /> */}
+      <NotesList />
     </div>
   );
 };

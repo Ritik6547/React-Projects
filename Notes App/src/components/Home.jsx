@@ -11,9 +11,9 @@ const Home = () => {
   const tabs = ["ALL", "PERSONAL", "HOME", "BUSINESS"];
 
   return (
-    <div className="mt-6 px-32">
+    <div className="mt-8 px-32">
       <h2 className="text-2xl font-semibold">Your notes</h2>
-      <div className="mt-6 flex justify-between">
+      <div className="mt-8 flex justify-between">
         <div className="tab-container relative flex gap-12 font-medium tracking-widest text-gray-900/60">
           {tabs.map((tab, i) => {
             return (

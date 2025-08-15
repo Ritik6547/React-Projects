@@ -1,98 +1,27 @@
-import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useNotesStore } from "../stores/useNotesStore";
+import { useModalStore } from "../stores/useModalStore";
+import { useNoteForm } from "../hooks/useNoteForm";
+import { useEscapeClose } from "../hooks/useEscapeClose";
 
-const AddNoteModal = ({ isModalOpen, setIsModalOpen }) => {
-  const [noteInput, setNoteInput] = useState({
-    title: "",
-    category: "",
-    desc: "",
-  });
-  const [errors, setErrors] = useState({});
-  const titleInputRef = useRef(null);
-  const id = useId();
-  const [descCount, setDescCount] = useState(0);
-  const addNote = useNotesStore((state) => state.addNote);
+const AddNoteModal = () => {
+  const isModalOpen = useModalStore((state) => state.isModalOpen);
+  const closeModal = useModalStore((state) => state.closeModal);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const {
+    id,
+    titleInputRef,
+    noteInput,
+    setNoteInput,
+    errors,
+    descCount,
+    setDescCount,
+    handleAddNote,
+    resetFields,
+  } = useNoteForm();
 
-  const validationConfig = {
-    title: [
-      { required: true, message: "Please enter a tilte" },
-      { minLength: 2, message: "Title should be at least 2 characters long" },
-    ],
-    category: [{ required: true, message: "Please select a category" }],
-    desc: [{ required: false, message: "" }],
-  };
+  useEscapeClose(isModalOpen, closeModal, titleInputRef);
 
-  const validate = (formData) => {
-    const errorsData = {};
-
-    Object.entries(formData).forEach(([label, value]) => {
-      validationConfig[label].some((rule) => {
-        if (rule.required && !value) {
-          errorsData[label] = rule.message;
-          return true;
-        }
-
-        if (rule.minLength && value.length < rule.minLength) {
-          errorsData[label] = rule.message;
-          return true;
-        }
-      });
-    });
-
-    setErrors(errorsData);
-    return errorsData;
-  };
-
-  const handleAddNote = () => {
-    const validateResult = validate(noteInput);
-    if (Object.keys(validateResult).length) {
-      return;
-    }
-
-    addNote(noteInput);
-    setNoteInput({
-      title: "",
-      category: "",
-      desc: "",
-    });
-    setErrors({});
-    closeModal();
-  };
-
-  const handelCancel = () => {
-    setNoteInput({
-      title: "",
-      category: "",
-      desc: "",
-    });
-    setErrors({});
-    closeModal();
-  };
-
-  useEffect(() => {
-    if (!isModalOpen) return;
-
-    if (isModalOpen && titleInputRef.current) {
-      titleInputRef.current.focus();
-    }
-
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        closeModal();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isModalOpen]);
+  if (!isModalOpen) return null;
 
   return createPortal(
     <div
@@ -184,8 +113,9 @@ const AddNoteModal = ({ isModalOpen, setIsModalOpen }) => {
             placeholder="Add description"
             value={noteInput.desc}
             onChange={(e) => {
-              setNoteInput({ ...noteInput, desc: e.target.value });
-              setDescCount((prevCount) => prevCount + 1);
+              const value = e.target.value;
+              setNoteInput({ ...noteInput, desc: value });
+              setDescCount(value.length);
             }}
           ></textarea>
         </div>
@@ -193,7 +123,7 @@ const AddNoteModal = ({ isModalOpen, setIsModalOpen }) => {
         <div className="flex justify-end">
           <div className="">
             <button
-              onClick={handelCancel}
+              onClick={resetFields}
               className="mr-8 cursor-pointer text-base font-medium tracking-widest text-gray-600"
             >
               Cancel

@@ -1,8 +1,8 @@
-import { useState } from "react";
 import AddNoteModal from "./AddNoteModal";
+import { useModalStore } from "../stores/useModalStore";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = useModalStore((state) => state.openModal);
 
   return (
     <header className="flex gap-5 bg-white px-32 py-4 shadow-md">
@@ -15,12 +15,12 @@ const Header = () => {
         />
       </div>
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => openModal()}
         className="flex cursor-pointer items-center gap-1 rounded-3xl bg-[#42A5F5] px-4 py-3 font-medium text-white transition delay-150 outline-none hover:bg-[#2196F3]"
       >
         <i className="fa-solid fa-plus"></i> <span>Add</span>
       </button>
-      <AddNoteModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <AddNoteModal />
     </header>
   );
 };

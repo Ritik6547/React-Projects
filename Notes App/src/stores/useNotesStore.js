@@ -11,8 +11,21 @@ export const useNotesStore = create((set) => ({
           ...noteObj,
           id: crypto.randomUUID(),
           createdAt: getFormattedDate(),
+          completed: false,
         },
       ],
+    }));
+  },
+  deleteNote: (id) => {
+    set((state) => ({
+      notes: state.notes.filter((note) => note.id !== id),
+    }));
+  },
+  toggleNote: (id) => {
+    set((state) => ({
+      notes: state.notes.map((note) =>
+        note.id === id ? { ...note, completed: !note.completed } : note,
+      ),
     }));
   },
 }));

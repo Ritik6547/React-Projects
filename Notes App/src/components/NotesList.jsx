@@ -5,7 +5,7 @@ const NotesList = () => {
   const notes = useNotesStore((state) => state.notes);
 
   return (
-    <div className="mt-6 flex flex-wrap gap-6">
+    <div className="mt-10 flex flex-wrap gap-6">
       {notes.map((note) => {
         return (
           <NotesCard
@@ -15,6 +15,7 @@ const NotesList = () => {
             desc={note.desc}
             date={note.createdAt}
             id={note.id}
+            completed={note.completed}
           />
         );
       })}

@@ -1,7 +1,7 @@
 import AddNoteModal from "./AddNoteModal";
 import { useModalStore } from "../stores/useModalStore";
 
-const Header = () => {
+const Header = ({ searchQuery, setSearchQuery }) => {
   const openModal = useModalStore((state) => state.openModal);
 
   return (
@@ -12,6 +12,8 @@ const Header = () => {
           className="w-full text-base placeholder-gray-600 outline-none"
           type="text"
           placeholder="Search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
       <button

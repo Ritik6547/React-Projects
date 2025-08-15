@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useModalStore } from "../stores/useModalStore";
 import { useNoteFormStore } from "../stores/useNoteFormStore";
 import { useNotesStore } from "../stores/useNotesStore";
 
 const NotesCard = ({ category, title, desc, date, id, completed }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
   const deleteNote = useNotesStore((state) => state.deleteNote);
   const toggleNote = useNotesStore((state) => state.toggleNote);
   const openModal = useModalStore((state) => state.openModal);
@@ -32,7 +35,11 @@ const NotesCard = ({ category, title, desc, date, id, completed }) => {
             <input
               className="h-5 w-5 cursor-pointer accent-gray-500/60"
               type="checkbox"
-              onClick={() => toggleNote(id)}
+              checked={isChecked}
+              onChange={(e) => {
+                setIsChecked(e.target.checked);
+                toggleNote(id);
+              }}
             />
             <i
               onClick={() => handleNoteEdit(id)}

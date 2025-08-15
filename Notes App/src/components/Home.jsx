@@ -4,9 +4,12 @@ import NotesStatus from "./NotesStatus";
 import emptyNotesImg from "../assets/empty-notes-icon.svg";
 import searchImg from "../assets/search.svg";
 import AddNoteModal from "./AddNoteModal";
+import { useNotesStore } from "../stores/useNotesStore";
 
-const Home = () => {
+const Home = ({ searchQuery }) => {
   const [activeTab, setActiveTab] = useState("ALL");
+  const [filterQuery, setFilterQuery] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const tabs = ["ALL", "PERSONAL", "HOME", "BUSINESS"];
 
@@ -19,7 +22,10 @@ const Home = () => {
             return (
               <button
                 key={i}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => {
+                  setActiveTab(tab);
+                  setFilterQuery(tab === "ALL" ? "" : tab);
+                }}
                 className={`flex-1 cursor-pointer py-1 ${activeTab === tab ? "text-blue-400" : ""}`}
               >
                 {tab}
@@ -33,6 +39,8 @@ const Home = () => {
             type="checkbox"
             name="completed"
             id="completed"
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
           />
           <p>Show only completed notes </p>
         </div>
@@ -45,7 +53,11 @@ const Home = () => {
       /> */}
       {/* <NotesStatus label="No notes found" imgSrc={searchImg} /> */}
 
-      <NotesList />
+      <NotesList
+        isChecked={isChecked}
+        filterQuery={filterQuery}
+        searchQuery={searchQuery}
+      />
     </div>
   );
 };

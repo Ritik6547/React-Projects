@@ -1,5 +1,5 @@
-import { useNoteForm } from "../hooks/useNoteForm";
 import { useModalStore } from "../stores/useModalStore";
+import { useNoteFormStore } from "../stores/useNoteFormStore";
 import { useNotesStore } from "../stores/useNotesStore";
 
 const NotesCard = ({ category, title, desc, date, id, completed }) => {
@@ -7,7 +7,15 @@ const NotesCard = ({ category, title, desc, date, id, completed }) => {
   const toggleNote = useNotesStore((state) => state.toggleNote);
   const openModal = useModalStore((state) => state.openModal);
   const notes = useNotesStore((state) => state.notes);
-  const { setNoteInput } = useNoteForm();
+  const setNoteInput = useNoteFormStore((state) => state.setNoteInput);
+  const setEditingId = useNoteFormStore((state) => state.setEditingId);
+
+  const handleNoteEdit = (id) => {
+    const { title, category, desc } = notes.find((note) => note.id === id);
+    openModal();
+    setNoteInput({ title, category, desc });
+    setEditingId(id);
+  };
 
   return (
     <div
@@ -27,7 +35,7 @@ const NotesCard = ({ category, title, desc, date, id, completed }) => {
               onClick={() => toggleNote(id)}
             />
             <i
-              onClick={() => console.log("edit")}
+              onClick={() => handleNoteEdit(id)}
               class="fa-solid fa-pen cursor-pointer"
             ></i>
             <i

@@ -2,21 +2,24 @@ import { createPortal } from "react-dom";
 import { useModalStore } from "../stores/useModalStore";
 import { useNoteForm } from "../hooks/useNoteForm";
 import { useEscapeClose } from "../hooks/useEscapeClose";
+import { useNoteFormStore } from "../stores/useNoteFormStore";
 
 const AddNoteModal = () => {
   const isModalOpen = useModalStore((state) => state.isModalOpen);
   const closeModal = useModalStore((state) => state.closeModal);
+  const noteInput = useNoteFormStore((state) => state.noteInput);
+  const setNoteInput = useNoteFormStore((state) => state.setNoteInput);
+  const editingId = useNoteFormStore((state) => state.editingId);
 
   const {
     id,
     titleInputRef,
-    noteInput,
-    setNoteInput,
     errors,
     descCount,
     setDescCount,
     handleAddNote,
     resetFields,
+    resetForm,
   } = useNoteForm();
 
   useEscapeClose(isModalOpen, closeModal, titleInputRef);
@@ -33,9 +36,11 @@ const AddNoteModal = () => {
         className="flex h-[470px] w-[616px] flex-col gap-7 rounded-lg bg-white px-8 py-6 text-gray-900/85 shadow-md"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold text-gray-900/85">Add note</h2>
+          <h2 className="text-2xl font-semibold text-gray-900/85">
+            {editingId ? "Edit" : "Add"} note
+          </h2>
           <i
-            onClick={closeModal}
+            onClick={() => resetForm()}
             className="fa-solid fa-xmark w-10 cursor-pointer text-gray-500"
           ></i>
         </div>
@@ -132,7 +137,7 @@ const AddNoteModal = () => {
               onClick={handleAddNote}
               className="cursor-pointer rounded-3xl bg-[#42A5F5] px-6 py-3 font-medium tracking-wider text-white transition delay-150 hover:bg-[#2196F3]"
             >
-              Add
+              {editingId ? "Edit" : "Add"}
             </button>
           </div>
         </div>

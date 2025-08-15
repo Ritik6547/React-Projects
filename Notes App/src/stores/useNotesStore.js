@@ -28,4 +28,11 @@ export const useNotesStore = create((set) => ({
       ),
     }));
   },
+  editNote: (noteObj, id) => {
+    set((state) => ({
+      notes: state.notes.map((note) =>
+        note.id === id ? { ...note, ...noteObj } : note,
+      ),
+    }));
+  },
 }));

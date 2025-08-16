@@ -1,5 +1,8 @@
 import { useNotesStore } from "../stores/useNotesStore";
 import NotesCard from "./NotesCard";
+import searchImg from "../assets/search.svg";
+
+import NotesStatus from "./NotesStatus";
 
 const NotesList = ({ filterQuery, isChecked, searchQuery }) => {
   const notes = useNotesStore((state) => state.notes);
@@ -14,9 +17,13 @@ const NotesList = ({ filterQuery, isChecked, searchQuery }) => {
 
   const searchedNotes = searchQuery.trim()
     ? filteredNotesByCompleted.filter((note) =>
-        note.title.toLowerCase().includes(searchQuery.toLowerCase()),
+        note.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
       )
     : filteredNotesByCompleted;
+
+  if (!searchedNotes.length) {
+    return <NotesStatus label="No notes found" imgSrc={searchImg} />;
+  }
 
   return (
     <div className="mt-10 flex flex-wrap gap-6">

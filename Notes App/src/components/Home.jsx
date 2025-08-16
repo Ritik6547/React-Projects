@@ -2,14 +2,13 @@ import { useState } from "react";
 import NotesList from "./NotesList";
 import NotesStatus from "./NotesStatus";
 import emptyNotesImg from "../assets/empty-notes-icon.svg";
-import searchImg from "../assets/search.svg";
-import AddNoteModal from "./AddNoteModal";
 import { useNotesStore } from "../stores/useNotesStore";
 
 const Home = ({ searchQuery }) => {
   const [activeTab, setActiveTab] = useState("ALL");
   const [filterQuery, setFilterQuery] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const notes = useNotesStore((state) => state.notes);
 
   const tabs = ["ALL", "PERSONAL", "HOME", "BUSINESS"];
 
@@ -46,18 +45,15 @@ const Home = ({ searchQuery }) => {
         </div>
       </div>
 
-      {/* <NotesStatus label="You don't have any notes" imgSrc={emptyNotesImg} /> */}
-      {/* <NotesStatus
-        label="You don't have any completed notes"
-        imgSrc={emptyNotes}
-      /> */}
-      {/* <NotesStatus label="No notes found" imgSrc={searchImg} /> */}
-
-      <NotesList
-        isChecked={isChecked}
-        filterQuery={filterQuery}
-        searchQuery={searchQuery}
-      />
+      {notes.length ? (
+        <NotesList
+          isChecked={isChecked}
+          filterQuery={filterQuery}
+          searchQuery={searchQuery}
+        />
+      ) : (
+        <NotesStatus label="You don't have any notes" imgSrc={emptyNotesImg} />
+      )}
     </div>
   );
 };

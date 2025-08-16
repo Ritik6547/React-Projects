@@ -3,13 +3,22 @@ import { useModalStore } from "../stores/useModalStore";
 import { useNoteForm } from "../hooks/useNoteForm";
 import { useEscapeClose } from "../hooks/useEscapeClose";
 import { useNoteFormStore } from "../stores/useNoteFormStore";
+import { useShallow } from "zustand/shallow";
 
 const AddNoteModal = () => {
-  const isModalOpen = useModalStore((state) => state.isModalOpen);
-  const closeModal = useModalStore((state) => state.closeModal);
-  const noteInput = useNoteFormStore((state) => state.noteInput);
-  const setNoteInput = useNoteFormStore((state) => state.setNoteInput);
-  const editingId = useNoteFormStore((state) => state.editingId);
+  const { isModalOpen, closeModal } = useModalStore(
+    useShallow((state) => ({
+      isModalOpen: state.isModalOpen,
+      closeModal: state.closeModal,
+    })),
+  );
+  const { noteInput, setNoteInput, editingId } = useNoteFormStore(
+    useShallow((state) => ({
+      noteInput: state.noteInput,
+      setNoteInput: state.setNoteInput,
+      editingId: state.editingId,
+    })),
+  );
 
   const {
     id,

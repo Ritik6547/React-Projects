@@ -2,19 +2,29 @@ import { useId, useRef, useState } from "react";
 import { useNotesStore } from "../stores/useNotesStore";
 import { useModalStore } from "../stores/useModalStore";
 import { useNoteFormStore } from "../stores/useNoteFormStore";
+import { useShallow } from "zustand/shallow";
 
 export const useNoteForm = () => {
   const [errors, setErrors] = useState({});
   const titleInputRef = useRef(null);
   const id = useId();
   const [descCount, setDescCount] = useState(0);
-  const addNote = useNotesStore((state) => state.addNote);
-  const editNote = useNotesStore((state) => state.editNote);
+  const { addNote, editNote } = useNotesStore(
+    useShallow((state) => ({
+      addNote: state.addNote,
+      editNote: state.editNote,
+    })),
+  );
   const closeModal = useModalStore((state) => state.closeModal);
-  const noteInput = useNoteFormStore((state) => state.noteInput);
-  const resetNoteInput = useNoteFormStore((state) => state.resetNoteInput);
-  const editingId = useNoteFormStore((state) => state.editingId);
-  const setEditingId = useNoteFormStore((state) => state.setEditingId);
+  const { noteInput, resetNoteInput, editingId, setEditingId } =
+    useNoteFormStore(
+      useShallow((state) => ({
+        noteInput: state.noteInput,
+        resetNoteInput: state.resetNoteInput,
+        editingId: state.editingId,
+        setEditingId: state.setEditingId,
+      })),
+    );
 
   const validationConfig = {
     title: [
@@ -64,6 +74,7 @@ export const useNoteForm = () => {
 
   const resetFields = () => {
     resetNoteInput();
+    setDescCount(0);
     setErrors({});
   };
 

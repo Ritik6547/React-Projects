@@ -1,14 +1,23 @@
+import { useShallow } from "zustand/shallow";
 import { useModalStore } from "../stores/useModalStore";
 import { useNoteFormStore } from "../stores/useNoteFormStore";
 import { useNotesStore } from "../stores/useNotesStore";
 
 const NotesCard = ({ category, title, desc, date, id, completed }) => {
-  const deleteNote = useNotesStore((state) => state.deleteNote);
-  const toggleNote = useNotesStore((state) => state.toggleNote);
+  const { notes, toggleNote, deleteNote } = useNotesStore(
+    useShallow((state) => ({
+      notes: state.notes,
+      deleteNote: state.deleteNote,
+      toggleNote: state.toggleNote,
+    })),
+  );
   const openModal = useModalStore((state) => state.openModal);
-  const notes = useNotesStore((state) => state.notes);
-  const setNoteInput = useNoteFormStore((state) => state.setNoteInput);
-  const setEditingId = useNoteFormStore((state) => state.setEditingId);
+  const { setNoteInput, setEditingId } = useNoteFormStore(
+    useShallow((state) => ({
+      setNoteInput: state.setNoteInput,
+      setEditingId: state.setEditingId,
+    })),
+  );
 
   const handleNoteEdit = (id) => {
     const { title, category, desc } = notes.find((note) => note.id === id);

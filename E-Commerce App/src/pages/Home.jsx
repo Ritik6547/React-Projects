@@ -1,7 +1,13 @@
-import React from "react";
+import Hero from "../components/Home/Hero";
+import LatestCollection from "../components/Home/LatestCollection";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Hero />
+      <LatestCollection />
+    </div>
+  );
 };
 
 export default Home;

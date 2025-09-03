@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import Product from "../pages/Product";
 import PlaceOrder from "../pages/PlaceOrder";
 import Orders from "../pages/Orders";
+import NotFound from "../components/NotFound";
 
 export const routes = [
   {
@@ -52,7 +53,7 @@ export const routes = [
       },
       {
         path: "*",
-        element: <App />,
+        element: <NotFound />,
       },
     ],
   },

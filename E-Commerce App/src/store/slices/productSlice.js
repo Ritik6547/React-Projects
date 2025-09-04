@@ -17,6 +17,10 @@ export const selectLatestCollections = createSelector(
   [selectAllProducts],
   (products) => products.slice(0, 10),
 );
+export const selectBestSellers = createSelector(
+  [selectAllProducts],
+  (products) => products.filter((product) => product.bestseller)
+)
 
 export const { loadProducts } = productSlice.actions;
 

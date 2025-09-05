@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { assets } from "../assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showSearchBar } from "../store/slices/filtersSlice.js";
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
@@ -55,11 +58,13 @@ const Header = () => {
       </ul>
 
       <div className="flex items-center gap-6">
-        <img
-          src={assets.search_icon}
-          className="w-5 cursor-pointer"
-          alt="search-icon"
-        />
+        <Link to="collection" onClick={() => dispatch(showSearchBar())}>
+          <img
+            src={assets.search_icon}
+            className="w-5 cursor-pointer"
+            alt="search-icon"
+          />
+        </Link>
         <Link to="login" className="group relative">
           <img
             src={assets.profile_icon}

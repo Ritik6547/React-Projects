@@ -12,7 +12,8 @@ const productSlice = createSlice({
   },
 });
 
-const selectAllProducts = (state) => state.products.list;
+export const selectAllProducts = (state) => state.products.list;
+
 export const selectFilteredProducts = createSelector(
   [selectAllProducts, (state) => state.filters],
   (products, filters) => {

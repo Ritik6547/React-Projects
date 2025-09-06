@@ -5,3 +5,7 @@
   --font-outfit: "Outfit", sans-serif;
   --font-prata: "Prata", serif;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

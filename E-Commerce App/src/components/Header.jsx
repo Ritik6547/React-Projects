@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { assets } from "../assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showSearchBar } from "../store/slices/filtersSlice.js";
+import { selectCartItems } from "../store/slices/cartSlice.js";
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
+  const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
 
   return (
@@ -79,7 +81,9 @@ const Header = () => {
             alt="cart-icon"
           />
           <p className="absolute right-[-5px] bottom-[-5px] aspect-square w-4 rounded-full bg-black text-center text-[8px] leading-4 text-white">
-            10
+            {cartItems.reduce((acc, item) => {
+              return acc + item.quantity;
+            }, 0)}
           </p>
         </Link>
         <img

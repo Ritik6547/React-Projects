@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectAllProducts } from "../store/slices/productSlice";
 import { assets } from "../assets/assets";
 import RelatedProducts from "../components/Product/RelatedProducts";
 import { createSelector } from "@reduxjs/toolkit";
+import { addCartItem } from "../store/slices/cartSlice";
+import { toast } from "react-toastify";
+import { showToast } from "../utils/toast";
 
 const makeSelectProductById = (id) =>
   createSelector([selectAllProducts], (products) =>
@@ -12,14 +15,32 @@ const makeSelectProductById = (id) =>
   );
 
 const Product = () => {
+  const dispatch = useDispatch();
   const { productId } = useParams();
   const productData = useSelector(makeSelectProductById(productId));
   const [image, setImage] = useState("");
-  const [sizeActive, setSizeActive] = useState("");
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     setImage(productData?.image[0]);
   }, [productData]);
+
+  const ADD_TO_CART_SUCCESS_ID = "add-to-cart-success";
+  const ADD_TO_CART_ERROR_ID = "add-to-cart-error";
+  const handleAddToCart = () => {
+    if (!size) {
+      showToast(ADD_TO_CART_ERROR_ID, "error", "Select Product Size");
+      return;
+    }
+    dispatch(
+      addCartItem({
+        productId: productData._id,
+        size: size,
+      }),
+    );
+    toast.dismiss(ADD_TO_CART_ERROR_ID);
+    showToast(ADD_TO_CART_SUCCESS_ID, "success", "Product added to cart");
+  };
 
   return productData ? (
     <div className="border-t pt-10 opacity-100 transition-opacity duration-500 ease-in">
@@ -39,11 +60,13 @@ const Product = () => {
             ))}
           </div>
           <div className="w-full sm:w-[80%]">
-            <img
-              className="h-auto w-full"
-              src={image}
-              alt="product-main-image"
-            />
+            {image && (
+              <img
+                className="h-auto w-full"
+                src={image}
+                alt="product-main-image"
+              />
+            )}
           </div>
         </div>
 
@@ -67,16 +90,19 @@ const Product = () => {
             <div className="flex gap-2">
               {productData.sizes.map((item, index) => (
                 <button
-                  className={`cursor-pointer border border-gray-300 bg-gray-100 px-4 py-2 ${sizeActive === item && "border-orange-500"}`}
+                  className={`cursor-pointer border border-gray-300 bg-gray-100 px-4 py-2 ${size === item && "border-orange-500"}`}
                   key={index}
-                  onClick={() => setSizeActive(item)}
+                  onClick={() => setSize(item)}
                 >
                   {item}
                 </button>
               ))}
             </div>
           </div>
-          <button className="cursor-pointer bg-black px-8 py-3 text-sm text-white active:bg-gray-700">
+          <button
+            onClick={handleAddToCart}
+            className="cursor-pointer bg-black px-8 py-3 text-sm text-white active:bg-gray-700"
+          >
             ADD TO CART
           </button>
           <hr className="mt-8 text-gray-400 sm:w-4/5" />

@@ -8,16 +8,21 @@ Each project is located in its own folder inside this repository, and is bootstr
 
 ## 📁 Project List
 
-| Project Name               | Description                                 |
-| -------------------------- | ------------------------------------------- |
-| 🧮 Counter App             | Simple counter to understand useState       |
-| 🧾 Tip Calculator          | Calculates tip based on bill and percentage |
-| 🌍 REST Countries API      | Displays country info using REST API        |
-| 🎨 Color Palette Generator | Generates color palettes from HEX/RGB       |
-| 🔖 Bookmark Saver          | Save and manage links locally               |
-| 🌦️ Weather App             | Fetch weather data using external API       |
-| 💰 Expense Tracker         | Track expenses with category breakdown      |
-| ✅ Todo List               | Add, remove, and filter tasks               |
+| Project Name                   | Description                                                                 |
+| ------------------------------ | --------------------------------------------------------------------------- |
+| 🧮 Counter App                 | Simple counter to understand `useState`                                     |
+| 🧾 Tip Calculator              | Calculates tip based on bill and percentage                                 |
+| 🌍 REST Countries API          | Displays country info using REST API                                        |
+| 🎨 Color Palette Generator     | Generates color palettes from HEX/RGB                                       |
+| 🔖 Bookmark Saver              | Save and manage links locally                                               |
+| 🌦️ Weather API Project         | Fetches weather data using an external API                                  |
+| 🌦️ Weather App (Redux Toolkit) | Weather application with Redux Toolkit state management                     |
+| 💰 Expense Tracker             | Track expenses with category breakdown                                      |
+| 📝 Notes App (Zustand)         | Notes management app using Zustand for lightweight state management         |
+| ✅ Todo List                   | Add, remove, and filter tasks                                               |
+| ✅ Todo App (Redux Toolkit)    | Task manager app using Redux Toolkit for state management                   |
+| 🐙 GitHub User Finder          | Search GitHub profiles via GitHub API                                       |
+| 🛒 E-Commerce App              | Intermediate-level app with Redux, Redux Toolkit & RTK Query for state/data |
 
 ---
 
@@ -35,15 +40,15 @@ Make sure you have the following installed:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/react-projects.git
-   cd react-projects
+   git clone https://github.com/Ritik6547/React-Projects.git
+   cd React-Projects
 
    ```
 
 2. Navigate to any project folder:
 
    ```bash
-   cd Todo List
+   cd "E-Commerce App"
 
    ```
 
@@ -67,24 +72,33 @@ Make sure you have the following installed:
 
 - ⚛️ **React** – Functional Components + Hooks
 - ⚡ **Vite** – Fast development and bundling
-- 🧪 **Fetch API / Axios** – For handling external API requests
+- 🧪 **Fetch API / Axios / RTK Query** – For handling API requests
 - 💅 **CSS** – Plain CSS, TailwindCSS, or other UI libraries (varies by project)
-- 🧠 **React Hooks** – `useState`, `useEffect`, `useReducer`, `useContext`, and more
+- 🧠 **React Hooks** – `useState`, `useEffect`, `useReducer`, `useContext`, etc.
+- ⚡ **Optimization Hooks** – `useMemo`, `useCallback`, and `React.memo` for performance optimization
+- 🗂️ **Redux & Redux Toolkit** – For advanced state management in some projects
+- 📝 **Zustand** – Lightweight state management library used in the Notes App
 
 ---
 
 ## 📌 Folder Structure
 
 ```css
-react-projects/
-├── counter-app/
-├── tip-calculator/
-├── rest-countries-api/
-├── color-palette-generator/
-├── bookmark-saver/
-├── weather-app/
-├── expense-tracker/
-└── todo-list/
+React-Projects/
+├── Counter App/
+├── Tip Calculator/
+├── REST Countries API/
+├── Color Palette Generator/
+├── Bookmark Saver/
+├── Weather API Project/
+├── Weather App (Redux Toolkit)/
+├── Expense Tracker/
+├── Todo List/
+├── Todo App (Redux Toolkit)/
+├── GitHub User Finder/
+├── Notes App/
+└── E-Commerce App/
+
 
 ```
 

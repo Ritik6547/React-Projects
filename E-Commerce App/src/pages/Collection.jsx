@@ -41,7 +41,7 @@ const Collection = () => {
   return (
     <>
       {showSearch && <SearchBar />}
-      <div className="flex flex-col gap-1 border-t pt-10 sm:flex-row sm:gap-10">
+      <div className="flex flex-col gap-1 border-t border-gray-300 pt-10 sm:flex-row sm:gap-10">
         {/* Filter Options */}
         <div className="min-w-60">
           <p className="my-2 flex cursor-pointer items-center gap-2 text-xl">

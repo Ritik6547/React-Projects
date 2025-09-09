@@ -5,7 +5,6 @@ import { formatDate } from "../utils/formatDate";
 
 const Orders = () => {
   const ordersData = useSelector(selectOrdersData);
-  console.log(ordersData);
 
   return (
     <div className="border-t pt-16">
